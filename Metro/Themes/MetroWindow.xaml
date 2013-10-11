@@ -1,0 +1,119 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Controls="clr-namespace:Metro.Controls">
+
+    <Style x:Key="BtnMinSize" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="BtnMinBg" Background="Transparent">
+                        <Line Stroke="White" StrokeThickness="1.5" HorizontalAlignment="Center" VerticalAlignment="Center" X1="3" X2="13" Margin="2,8,0,0"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Gray" TargetName="BtnMinBg"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#FF2A5BC5" TargetName="BtnMinBg"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnMaxSize" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="BtnMaxBg" Background="Transparent">
+                        <Rectangle Stroke="White" Width="9" Height="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Gray" TargetName="BtnMaxBg"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#FF2A5BC5" TargetName="BtnMaxBg"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnClose" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="BtnCloseBg" Background="Transparent">
+                        <Grid>
+                            <Line  Stroke="White" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" X1="0" X2="7" Y1="0" Y2="7" />
+                            <Line  Stroke="White" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" X1="0" X2="7" Y1="7" Y2="0" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Gray" TargetName="BtnCloseBg"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#FF2A5BC5" TargetName="BtnCloseBg"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Controls:MetroWindow">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="ResizeMode" Value="CanResizeWithGrip"/>
+        <!--<Setter Property="Foreground" Value="Black"/>-->
+        <Setter Property="MinHeight" Value="200"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate x:Name="WindowTemplate" TargetType="Controls:MetroWindow">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderBrush="DimGray" Margin="2" BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="2" BlurRadius="3"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                                <!--标题栏及最大化最小化按钮-->
+                                <Border  Name="PART_TitleBar"  Grid.Row="0" Height="50" CornerRadius="8" Background="{TemplateBinding Background}">
+                                    <DockPanel >
+                                        <Rectangle Fill="{TemplateBinding RectangleColor}"  Width="10" DockPanel.Dock="Left" Margin="0,20,0,0"/>
+                                        <TextBlock DockPanel.Dock="Left" Name="TitleText" Text="{TemplateBinding Title}" Margin="10,25,0,0" FontSize="{TemplateBinding FontSize}" Foreground="WhiteSmoke" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top">
+                                        <Button Name="PART_BtnMin" Height="20" Width="25" Style="{StaticResource BtnMinSize}" Margin="2" />
+                                        <Button Name="PART_BtnMax" Height="20" Width="25" Style="{StaticResource BtnMaxSize}" Margin="2" Visibility="{TemplateBinding MaxSizeButtonVisibility}"/>
+                                            <Button Name="PART_BtnClose" Height="20" Width="25" Style="{StaticResource BtnClose}" Margin="2"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                                <Border Grid.Row="1" Margin="8">
+                                    <AdornerDecorator>
+                                    <ContentPresenter />
+                                    </AdornerDecorator>
+                            </Border>
+                            <ResizeGrip x:Name="WindowResizeGrip" Grid.Row="2" HorizontalAlignment="Right" IsTabStop="false" Visibility="Visible"  VerticalAlignment="Bottom"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
